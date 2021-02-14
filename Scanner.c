@@ -12,6 +12,7 @@
 #define keyRange 1
 #define opRange 50
 #define delRange 100
+
 char keyWords[100][40] = {"int","float","break","long","char","for","if","switch","else","while","goto","continue","return","auto","double","boolean","string","default","do","case"};
 
 char operators[100][4] = { "+", "-", "*", "/", "%", "!", "?", ":", ">", "<", ":=", "==", ">=", "<=", "!=", "&&", "||", "="};
@@ -266,7 +267,6 @@ int scanner(char line[100]){
 
     for(int i = 0; i < strlen(line); i++)
 	{
-
         if(flag == 0)
         {
             if(line[i] == '/' && i+1 < strlen(line) && line[i+1] == '*') 
