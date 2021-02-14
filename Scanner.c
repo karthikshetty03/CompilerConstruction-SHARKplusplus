@@ -289,7 +289,7 @@ int scanner(char line[100]){
             i+=2;
         }
 		// Regular Lines: Not in comments
-        else if(flag == 0)
+        if(flag == 0)
 		{
 			// K iterates over buffer. Case for space, new line or end of file
             if((line[i] == ' ' || line[i] == '\n' || line[i] == '\0') && k!=0)
@@ -300,7 +300,7 @@ int scanner(char line[100]){
             }
             else
 			{
-                if(line[i] != ' ' || line[i] != '\n' || line[i] != '\0')
+                if(line[i] != ' ' && line[i] != '\n' && line[i] != '\0')
                     buffer[k++] = line[i];
             }
         }
