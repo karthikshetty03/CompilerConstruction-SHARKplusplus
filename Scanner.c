@@ -196,7 +196,7 @@ int dfa(char tok[100]){
 int tokenizer(char tok[100])
 {    
     int i=0,curr,k=0,flag1 = 0;
-    char buffer[100],c;
+    char buffer[100], c;
     while(tok[i] != '\0')
 	{   
 		//Check for operator and delimiter
@@ -259,50 +259,53 @@ int tokenizer(char tok[100])
 
 int scanner(char line[100]){
     
-    int k=0,x , i;
-    for(i=0;i<100;i++)
+    int k = 0;
+
+    for(int i = 0; i < 100; i++)
         buffer[i] = 0;
-    for(i=0;i<strlen(line);i++)
+
+    for(int i = 0; i < strlen(line); i++)
 	{
-		// Case for Double Slash
-        if(flag == 0 && line[i] == '/' && i+1 < strlen(line) && line[i+1] == '/')
-		{
-            flag = 2;
-            i+=2;
-        }
-		// Traversing in double slash comment
-        if(flag == 2 && line[i] == '\n')
-		{	
-            flag = 0;
-            i+=1;
-        }
-		// Multi Line Comment Start
-        if(flag == 0 && line[i] == '/' && i+1 < strlen(line) && line[i+1] == '*'){
-            flag = 1;
-            i+=2;
-        }
-		// Multi Line Comment End
-        if(flag == 1 && line[i] == '*' && i+1 < strlen(line) && line[i+1] == '/'){
-            flag = 0;
-            i+=2;
-        }
-		// Regular Lines: Not in comments
-        else if(flag == 0)
-		{
-			// K iterates over buffer. Case for space, new line or end of file
-            if((line[i] == ' ' || line[i] == '\n' || line[i] == '\0') && k!=0)
+
+        if(flag == 0)
+        {
+            if(line[i] == '/' && i+1 < strlen(line) && line[i+1] == '*') 
+                flag = 1, i++;
+            else if(line[i] == '/' && i+1 < strlen(line) && line[i+1] == '/') 
+                flag = 2, i++;
+            else if((line[i] == ' ' || line[i] == '\n' || line[i] == '\0'))
 			{
+                if(k == 0)
+                    continue;
+
                 buffer[k] = '\0';
                 tokenizer(buffer);
-                k=0;
+                
+                for(int i = 0; i < 100; i++)
+                    buffer[i] = 0;
+
+                k = 0;
             }
             else
 			{
-                if(line[i] != ' ' && line[i] != '\n' && line[i] != '\0')
-                    buffer[k++] = line[i];
+                buffer[k++] = line[i];
             }
         }
+        else if(flag == 1 && line[i] == '*' && i+1 < strlen(line) && line[i+1] == '/'){
+            flag = 0, i++;
+        }
+        else if(flag == 2 && line[i] == '\n')
+		{	
+            flag = 0;
+        }
    }
+
+    //fix for whitespaces
+   if(k!=0) {
+    //   printf("%s\n", buffer);
+        tokenizer(buffer);
+   }
+    
 }
 
 int main ( void )
@@ -317,6 +320,7 @@ int main ( void )
         while ( fgets ( line, sizeof line, file ) != NULL ) 
 		{
 			++line_no;
+            //printf("%s\n", line);
             scanner(line);
 
         }
