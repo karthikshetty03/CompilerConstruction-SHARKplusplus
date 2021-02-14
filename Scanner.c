@@ -260,10 +260,8 @@ int tokenizer(char tok[100])
 int scanner(char line[100]){
     
     int k=0,x , i;
-    
     for(i=0;i<100;i++)
         buffer[i] = 0;
-
     for(i=0;i<strlen(line);i++)
 	{
 		// Case for Double Slash
@@ -289,7 +287,7 @@ int scanner(char line[100]){
             i+=2;
         }
 		// Regular Lines: Not in comments
-        if(flag == 0)
+        else if(flag == 0)
 		{
 			// K iterates over buffer. Case for space, new line or end of file
             if((line[i] == ' ' || line[i] == '\n' || line[i] == '\0') && k!=0)
