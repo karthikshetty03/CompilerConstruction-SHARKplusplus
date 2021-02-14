@@ -186,8 +186,7 @@ int dfa(char tok[100]){
             printf("Token %d, string %s, line number %d\n",154,tok,line_no);
             break;
         default:
-            if(strlen(tok) == 0)
-                printf("Token %d, invalid %s, line number %d.......\n",404,tok,line_no);
+            printf("Token %d, invalid %s, line number %d.......\n",404,tok,line_no);
             break;
     }
     return state;
@@ -261,8 +260,10 @@ int tokenizer(char tok[100])
 int scanner(char line[100]){
     
     int k=0,x , i;
+    
     for(i=0;i<100;i++)
         buffer[i] = 0;
+
     for(i=0;i<strlen(line);i++)
 	{
 		// Case for Double Slash

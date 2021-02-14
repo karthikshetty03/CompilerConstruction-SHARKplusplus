@@ -1,8 +1,7 @@
-/* A program to compute factorials */
 int fact( int n) {
 if (n <= 1)
 return 1;
-else 
+else
 return n*fact(n-1);
 }
 void main(void) {
