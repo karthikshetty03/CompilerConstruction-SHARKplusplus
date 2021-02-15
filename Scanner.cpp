@@ -18,7 +18,24 @@ void putKeys()
 {
     keyWords.insert("int");
     keyWords.insert("float");
+    keyWords.insert("break");
     keyWords.insert("long");
+    keyWords.insert("char");
+    keyWords.insert("for");
+    keyWords.insert("if");
+    keyWords.insert("switch");
+    keyWords.insert("else");
+    keyWords.insert("while");
+    keyWords.insert("goto");
+    keyWords.insert("continue");
+    keyWords.insert("return");
+    keyWords.insert("auto");
+    keyWords.insert("double");
+    keyWords.insert("boolean");
+    keyWords.insert("string");
+    keyWords.insert("default");
+    keyWords.insert("do");
+    keyWords.insert("case");
 }
 
 void putOperators()
@@ -26,13 +43,33 @@ void putOperators()
     operators.insert("+");
     operators.insert("-");
     operators.insert("*");
+    operators.insert("/");
+    operators.insert("%");
+    operators.insert("!");
+    operators.insert("?");
+    operators.insert(":");
+    operators.insert(">");
+    operators.insert("<");
+    operators.insert(":=");
+    operators.insert("==");
+    operators.insert(">=");
+    operators.insert("<=");
+    operators.insert("!=");
+    operators.insert("&&");
+    operators.insert("||");
     operators.insert("=");
 }
 
 void putDelimiters()
 {
-    delimiters.insert(";");
+    delimiters.insert("{");
+    delimiters.insert("}");
     delimiters.insert("(");
+    delimiters.insert(")");
+    delimiters.insert("[");
+    delimiters.insert("]");
+    delimiters.insert(";");
+    delimiters.insert(",");
 }
 
 int checkOpDel(char ch)
