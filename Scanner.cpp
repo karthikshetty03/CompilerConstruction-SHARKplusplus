@@ -26,7 +26,7 @@ void putOperators()
     operators.insert("+");
     operators.insert("-");
     operators.insert("*");
-    operators.insert("/");
+    operators.insert("=");
 }
 
 void putDelimiters()
@@ -37,19 +37,20 @@ void putDelimiters()
 
 int checkOpDel(char ch)
 {
-    for (auto x : keyWords)
+    for (auto x : operators)
         if (x[0] == ch)
             return 1;
 
-    for (auto x : operators)
+    for (auto x : delimiters)
         if (x[0] == ch)
             return 2;
-
     return 0;
 }
 
 int dfa(string token)
 {
+    cout << token << endl;
+
     if (token.length() == 0)
         return 0;
 
@@ -57,8 +58,8 @@ int dfa(string token)
     {
         if (*itr == token)
         {
-            cout << "Token" << keyRange + distance(keyWords.begin(), itr) << ","
-                 << "keyword" << token << ","
+            cout << "Token " << keyRange + distance(keyWords.begin(), itr) << ", "
+                 << "keyword " << token << ", "
                  << "line number " << line_no << endl;
             return 0;
         }
@@ -68,8 +69,8 @@ int dfa(string token)
     {
         if (*itr == token)
         {
-            cout << "Token" << opRange + distance(operators.begin(), itr) << ","
-                 << "operator" << token << ","
+            cout << "Token " << opRange + distance(operators.begin(), itr) << ", "
+                 << "operator " << token << ", "
                  << "line number " << line_no << endl;
             return 0;
         }
@@ -79,8 +80,8 @@ int dfa(string token)
     {
         if (*itr == token)
         {
-            cout << "Token" << opRange + distance(delimiters.begin(), itr) << ","
-                 << "delimiter" << token << ","
+            cout << "Token " << opRange + distance(delimiters.begin(), itr) << ", "
+                 << "delimiter" << token << ", "
                  << "line number " << line_no << endl;
             return 0;
         }
@@ -217,13 +218,18 @@ int dfa(string token)
 
 void tokenizer(string token)
 {
-    int k = 0, flag = 0, curr;
+    int flag = 0, curr;
     string buffer;
     char ch;
+    //cout << token << endl;
+    //dfa(token);
+    //return;
 
     for (int i = 0; i < token.length(); i++)
     {
         int curr = checkOpDel(token[i]);
+
+        //cout << token[i] << " " << curr << endl;
 
         if (flag == 1)
         {
@@ -234,11 +240,13 @@ void tokenizer(string token)
             }
 
             dfa(buffer);
-            k = 0;
+            buffer = "";
+
             if (flag == 2)
             {
                 buffer += token[i];
             }
+
             flag = 0;
             i++;
             continue;
@@ -252,16 +260,16 @@ void tokenizer(string token)
         {
             flag = 1;
             dfa(buffer);
-            k = 0;
+            buffer = "";
             buffer += token[i];
         }
         else if (curr == 2)
         {
             dfa(buffer);
-            k = 0;
+            buffer = "";
             buffer += token[i];
             dfa(buffer);
-            k = 0;
+            buffer = "";
         }
 
         i++;
