@@ -51,7 +51,7 @@ int checkOpDel(char ch)
 int dfa(string token)
 {
     if (token.length() == 0)
-        return;
+        return 0;
 
     for (auto itr = keyWords.begin(); itr != keyWords.end(); itr++)
     {
@@ -60,7 +60,7 @@ int dfa(string token)
             cout << "Token" << keyRange + distance(keyWords.begin(), itr) << ","
                  << "keyword" << token << ","
                  << "line number " << line_no << endl;
-            return;
+            return 0;
         }
     }
 
@@ -71,7 +71,7 @@ int dfa(string token)
             cout << "Token" << opRange + distance(operators.begin(), itr) << ","
                  << "operator" << token << ","
                  << "line number " << line_no << endl;
-            return;
+            return 0;
         }
     }
 
@@ -82,7 +82,7 @@ int dfa(string token)
             cout << "Token" << opRange + distance(delimiters.begin(), itr) << ","
                  << "delimiter" << token << ","
                  << "line number " << line_no << endl;
-            return;
+            return 0;
         }
     }
 
@@ -100,61 +100,61 @@ int dfa(string token)
         switch (state)
         {
         case 1:
-            if (isalpha(t))
+            if (isalpha(ch))
                 state = 2;
-            else if (t == '+' || t == '-')
+            else if (ch == '+' || ch == '-')
                 state = 3;
-            else if (isdigit(t) && t != '0')
+            else if (isdigit(ch) && ch != '0')
                 state = 4;
-            else if (t == '0')
+            else if (ch == '0')
                 state = 5;
-            else if (t == '"')
+            else if (ch == '"')
                 state = 6;
             else
                 state = 10;
             break;
         case 2:
-            if (isalpha(t) || isdigit(t) || t == '_')
+            if (isalpha(ch) || isdigit(ch) || ch == '_')
                 state = 2;
             else
                 state = 10;
             break;
         case 3:
-            if (isdigit(t) && t != '0')
+            if (isdigit(ch) && ch != '0')
                 state = 4;
-            else if (t == '0')
+            else if (ch == '0')
                 state = 11;
             else
                 state = 10;
             break;
         case 4:
-            if (isdigit(t))
+            if (isdigit(ch))
                 state = 4;
-            else if (t == '.')
+            else if (ch == '.')
                 state = 7;
             else
                 state = 10;
             break;
         case 5:
-            if (t == '.')
+            if (ch == '.')
                 state = 7;
             else
                 state = 10;
             break;
         case 6:
-            if (t != '"')
+            if (ch != '"')
                 state = 6;
             else
                 state = 9;
             break;
         case 7:
-            if (isdigit(t))
+            if (isdigit(ch))
                 state = 8;
             else
                 state = 10;
             break;
         case 8:
-            if (isdigit(t))
+            if (isdigit(ch))
                 state = 8;
             else
                 state = 10;
@@ -166,7 +166,7 @@ int dfa(string token)
             printf("invalid token\n");
             return 10;
         case 11:
-            if (t == '.')
+            if (ch == '.')
                 state = 7;
             else
                 state = 10;
@@ -208,7 +208,7 @@ int dfa(string token)
     default:
         cout << "Token 404,"
              << "invalid " << token << ","
-             << "line number " << line_no << "........" endl;
+             << "line number " << line_no << "........" << endl;
         break;
     }
 
@@ -275,6 +275,7 @@ void Scanner(string line)
 
     for (int i = 0; i < line.length(); i++)
     {
+        //cout << buffer << endl;
         if (flag == 0)
         {
             if (line[i] == '/' and i + 1 < line.length() and line[i + 1] == '*')
@@ -292,13 +293,14 @@ void Scanner(string line)
                 if (k == 0)
                     continue;
 
-                buffer = "";
                 tokenizer(buffer);
+                buffer = "";
                 k = 0;
             }
             else
             {
                 buffer += line[i];
+                k++;
             }
         }
         else if (flag == 1)
@@ -318,6 +320,7 @@ void Scanner(string line)
 
     if (k != 0)
     {
+        //cout << buffer << endl;
         tokenizer(buffer);
     }
 }
@@ -331,8 +334,9 @@ int main()
     cin >> filename;
 
     fstream file;
+    file.open(filename, ios::in);
 
-    if (file.is_open())
+    if (file)
     {
         string line;
         while (getline(file, line))
