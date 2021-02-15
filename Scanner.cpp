@@ -81,6 +81,7 @@ int checkOpDel(char ch)
     for (auto x : delimiters)
         if (x[0] == ch)
             return 2;
+
     return 0;
 }
 
@@ -279,7 +280,7 @@ void tokenizer(string token)
             dfa(buffer);
             buffer = "";
 
-            if (flag == 2)
+            if (flag != 2)
             {
                 buffer += token[i];
             }
