@@ -244,13 +244,13 @@ int tokenizer(char tok[100])
         else if(curr == 2)
 		{
             buffer[k] = '\0';
-            printf("%s\n", buffer);
+            //printf("%s\n", buffer);
 
             dfa(buffer);
             k=0;
             buffer[k++] = tok[i];
             buffer[k] = '\0';
-            printf("%s\n", buffer);
+            //printf("%s\n", buffer);
 
             dfa(buffer);
             k=0;
@@ -261,7 +261,7 @@ int tokenizer(char tok[100])
     if(k!=0) 
 	{
         buffer[k] = '\0';
-        printf("%s\n", buffer);
+        //printf("%s\n", buffer);
 
         dfa(buffer);
     }

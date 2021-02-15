@@ -49,7 +49,7 @@ int checkOpDel(char ch)
 
 int dfa(string token)
 {
-    cout << token << endl;
+    //cout << token << endl;
 
     if (token.length() == 0)
         return 0;
@@ -81,7 +81,7 @@ int dfa(string token)
         if (*itr == token)
         {
             cout << "Token " << opRange + distance(delimiters.begin(), itr) << ", "
-                 << "delimiter" << token << ", "
+                 << "delimiter " << token << ", "
                  << "line number " << line_no << endl;
             return 0;
         }
@@ -178,37 +178,37 @@ int dfa(string token)
     {
     case 2:
         // Identifier
-        cout << "Token 150,"
-             << "identifier " << token << ","
+        cout << "Token 150, "
+             << "identifier " << token << ", "
              << "line number " << line_no << endl;
         break;
     case 4:
         //Integers from 1-9
-        cout << "Token 151,"
-             << "Integer " << token << ","
+        cout << "Token 151, "
+             << "Integer " << token << ", "
              << "line number " << line_no << endl;
         break;
     case 5:
         // Specifically for integer =0
-        cout << "Token 152,"
-             << "Integer " << token << ","
+        cout << "Token 152, "
+             << "Integer " << token << ", "
              << "line number " << line_no << endl;
         break;
     case 8:
         // Float
-        cout << "Token 153,"
-             << "Float " << token << ","
+        cout << "Token 153, "
+             << "Float " << token << ", "
              << "line number " << line_no << endl;
         break;
     case 9:
         //empty string
-        cout << "Token 154,"
-             << "String " << token << ","
+        cout << "Token 154, "
+             << "String " << token << ", "
              << "line number " << line_no << endl;
         break;
     default:
-        cout << "Token 404,"
-             << "invalid " << token << ","
+        cout << "Token 404, "
+             << "invalid " << token << ", "
              << "line number " << line_no << "........" << endl;
         break;
     }
@@ -248,7 +248,6 @@ void tokenizer(string token)
             }
 
             flag = 0;
-            i++;
             continue;
         }
 
@@ -271,9 +270,10 @@ void tokenizer(string token)
             dfa(buffer);
             buffer = "";
         }
-
-        i++;
     }
+
+    if (buffer.length())
+        dfa(buffer);
 }
 
 void Scanner(string line)
