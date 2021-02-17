@@ -261,6 +261,8 @@ int dfa(string token)
     return state;
 }
 
+string temp;
+
 void tokenizer(string token)
 {
     int flag = 0, curr;
@@ -297,6 +299,17 @@ void tokenizer(string token)
                 }
 
                 i--;
+
+                if (temp != "=") //-- > 3
+                {
+                    //buffer --> -4
+                    reverse(buffer.begin(), buffer.end()); //-- > 4-
+                    string op;
+                    op += buffer.back();
+                    dfa(op); //return operator --> -
+                    buffer.pop_back();
+                    reverse(buffer.begin(), buffer.end()); //-->4
+                }
 
                 if (cntDot > 1)
                 {
@@ -342,6 +355,8 @@ void tokenizer(string token)
 
     if (buffer.length())
         dfa(buffer);
+
+    temp = token;
 }
 
 void Scanner(string line)
