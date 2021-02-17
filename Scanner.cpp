@@ -246,7 +246,6 @@ int dfa(string token)
              << "line number " << line_no << endl;
         break;
     case 9:
-        //empty string
         cout << "Token 154, "
              << "String " << token << ", "
              << "line number " << line_no << endl;
@@ -435,7 +434,7 @@ void Scanner(string line)
         }
     }
 
-    if (k != 0)
+    if (buffer.length() != 0)
     {
         //cout << "buffer : " << buffer << endl;
         tokenizer(buffer);
