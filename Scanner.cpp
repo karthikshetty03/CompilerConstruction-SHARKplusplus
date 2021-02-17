@@ -388,6 +388,12 @@ void Scanner(string line)
             {
                 if (k == 0)
                     continue;
+
+                if (buffer.length() >= 1 and (buffer.back() == '+' or buffer.back() == '-'))
+                {
+                    continue;
+                }
+
                 //cout << "buffer : " << buffer << endl;
                 tokenizer(buffer);
                 buffer = "";
