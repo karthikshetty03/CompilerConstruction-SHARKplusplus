@@ -202,7 +202,7 @@ int tokenizer(char tok[100])
 	{   
 		//Check for operator and delimiter
         curr = checker_od(tok[i]);
-        printf("%d\n", curr);
+        //printf("%d\n", curr);
         
         // Operator has been read
         if(flag1 == 1)
@@ -214,7 +214,7 @@ int tokenizer(char tok[100])
                 flag1 = 2;
             }
             buffer[k] = '\0';
-            printf("%s\n", buffer);
+            //printf("%s\n", buffer);
             dfa(buffer);
             k=0;
             if(flag1 != 2)
@@ -234,7 +234,7 @@ int tokenizer(char tok[100])
 		{
             flag1 = 1;
             buffer[k] = '\0';
-            printf("%s\n", buffer);
+            //printf("%s\n", buffer);
 
             dfa(buffer);
             k=0;

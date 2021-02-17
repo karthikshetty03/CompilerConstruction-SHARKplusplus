@@ -35,7 +35,11 @@ void putKeys()
     keyWords.insert("string");
     keyWords.insert("default");
     keyWords.insert("do");
+    keyWords.insert("void");
+    keyWords.insert("main");
     keyWords.insert("case");
+    keyWords.insert("true");
+    keyWords.insert("false");
 }
 
 void putOperators()
@@ -131,6 +135,7 @@ int dfa(string token)
 
     for (int i = 0; i < token.length(); i++)
     {
+
         if (state == 10)
             break;
 
@@ -212,6 +217,8 @@ int dfa(string token)
         }
     }
 
+    //cout << state << endl;
+
     switch (state)
     {
     case 2:
@@ -259,7 +266,8 @@ void tokenizer(string token)
     int flag = 0, curr;
     string buffer;
     char ch;
-    //cout << token << endl;
+    //cout << "token : " << token << endl;
+    //dfa(token);
     //dfa(token);
     //return;
 
@@ -276,6 +284,29 @@ void tokenizer(string token)
                 buffer += token[i];
                 flag = 2;
             }
+            else if (token[i - 1] == '-' or token[i - 1] == '+' and isdigit(token[i]) and token[i] != '0')
+            {
+                flag = 2;
+                int cntDot = 0;
+
+                while (i < token.length() and (isdigit(token[i]) or token[i] == '.'))
+                {
+                    buffer += token[i++];
+                    if (token[i] == '.')
+                        cntDot++;
+                }
+
+                i--;
+
+                if (cntDot > 1)
+                {
+                    cout << "Token 404, "
+                         << "invalid " << buffer << ", "
+                         << "line number " << line_no << "........" << endl;
+                    buffer = "";
+                }
+            }
+
 
             dfa(buffer);
             buffer = "";
@@ -338,7 +369,7 @@ void Scanner(string line)
             {
                 if (k == 0)
                     continue;
-
+                //cout << "buffer : " << buffer << endl;
                 tokenizer(buffer);
                 buffer = "";
                 k = 0;
@@ -366,11 +397,12 @@ void Scanner(string line)
 
     if (k != 0)
     {
-        //cout << buffer << endl;
+        //cout << "buffer : " << buffer << endl;
         tokenizer(buffer);
     }
 }
 
+//driver code : parser
 int main()
 {
     putKeys();
