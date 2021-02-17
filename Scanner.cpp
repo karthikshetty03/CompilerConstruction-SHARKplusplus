@@ -204,7 +204,7 @@ int dfa(string token)
                 state = 10;
             break;
         case 9:
-            state = 10;
+            state = 9;
             break;
         case 10:
             printf("invalid token\n");
@@ -307,7 +307,6 @@ void tokenizer(string token)
                 }
             }
 
-
             dfa(buffer);
             buffer = "";
 
@@ -349,10 +348,30 @@ void Scanner(string line)
 {
     int k = 0, flag = 0;
     string buffer;
+    bool stringLiteral = false;
 
     for (int i = 0; i < line.length(); i++)
     {
-        //cout << buffer << endl;
+        if (line[i] == '"' and !stringLiteral)
+        {
+            stringLiteral = true;
+            buffer += line[i];
+            continue;
+        }
+
+        if (stringLiteral)
+        {
+            buffer += line[i];
+
+            if (line[i] == '"')
+            {
+                tokenizer(buffer);
+                buffer = "";
+            }
+
+            continue;
+        }
+
         if (flag == 0)
         {
             if (line[i] == '/' and i + 1 < line.length() and line[i + 1] == '*')
