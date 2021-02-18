@@ -381,6 +381,7 @@ void Scanner(string line)
             {
                 tokenizer(buffer);
                 buffer = "";
+                stringLiteral = false;
             }
 
             continue;
