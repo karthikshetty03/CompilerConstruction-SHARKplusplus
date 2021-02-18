@@ -37,6 +37,8 @@ void putKeys()
     keyWords.insert("case");
     keyWords.insert("true");
     keyWords.insert("false");
+
+    //whitespace after below two keywords are mandatory
     keyWords.insert("printf");
     keyWords.insert("scanf");
 }
@@ -68,6 +70,7 @@ void putOperators()
     operators.insert("=");
 }
 
+//set containing delimeters
 void putDelimiters()
 {
     delimiters.insert("{");
