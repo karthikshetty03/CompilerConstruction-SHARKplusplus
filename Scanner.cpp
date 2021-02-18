@@ -1,12 +1,8 @@
 #include <bits/stdc++.h>
-#define numKeywords 20
-#define numOperators 18
-#define numDelimiters 8
-#define MaxTokenSize 100
-
 #define keyRange 1
 #define opRange 50
 #define delRange 100
+
 using namespace std;
 
 int token_no = 1;
@@ -467,6 +463,7 @@ int main()
 
     fstream file;
     file.open(filename, ios::in);
+
     //comment below line to print output on termina;
     freopen("output3.txt", "w", stdout);
 
