@@ -10,6 +10,7 @@ int line_no = 0;
 
 set<string> keyWords, operators, delimiters;
 
+//set containing keywords
 void putKeys()
 {
     keyWords.insert("int");
@@ -40,6 +41,7 @@ void putKeys()
     keyWords.insert("scanf");
 }
 
+//set containing operators
 void putOperators()
 {
     operators.insert("+");

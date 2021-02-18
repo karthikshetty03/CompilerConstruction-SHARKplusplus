@@ -1,4 +1,4 @@
-If I run this on the file
+//If I run this on the file
 /* A program to compute factorials */
 int fact( int n) {
 if (n <= 1)

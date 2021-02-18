@@ -1,10 +1,3 @@
-Token 150, identifier If, line number 1
-Token 150, identifier I, line number 1
-Token 150, identifier run, line number 1
-Token 150, identifier this, line number 1
-Token 150, identifier on, line number 1
-Token 150, identifier the, line number 1
-Token 150, identifier file, line number 1
 Token 16, keyword int, line number 3
 Token 150, identifier fact, line number 3
 Token 50, delimiter (, line number 3
