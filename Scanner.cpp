@@ -40,6 +40,8 @@ void putKeys()
     keyWords.insert("case");
     keyWords.insert("true");
     keyWords.insert("false");
+    keyWords.insert("printf");
+    keyWords.insert("scanf");
 }
 
 void putOperators()
@@ -59,6 +61,10 @@ void putOperators()
     operators.insert(">=");
     operators.insert("<=");
     operators.insert("!=");
+    operators.insert("&");
+    operators.insert("|");
+    operators.insert("^");
+    operators.insert("||");
     operators.insert("&&");
     operators.insert("||");
     operators.insert("=");
@@ -264,6 +270,7 @@ string temp;
 
 void tokenizer(string token)
 {
+    //cout << token << endl;
     int flag = 0, curr;
     string buffer;
     char ch;
@@ -299,7 +306,7 @@ void tokenizer(string token)
 
                 i--;
 
-                if (temp != "=") //-- > 3
+                if (operators.find(temp) == operators.end()) //-- > 3
                 {
                     //buffer --> -4
                     reverse(buffer.begin(), buffer.end()); //-- > 4-
@@ -366,8 +373,12 @@ void Scanner(string line)
 
     for (int i = 0; i < line.length(); i++)
     {
+        //cout << buffer << endl;
+
         if (line[i] == '"' and !stringLiteral)
         {
+            tokenizer(buffer);
+            buffer = "";
             stringLiteral = true;
             buffer += line[i];
             continue;
@@ -379,7 +390,7 @@ void Scanner(string line)
 
             if (line[i] == '"')
             {
-                tokenizer(buffer);
+                dfa(buffer);
                 buffer = "";
                 stringLiteral = false;
             }
@@ -399,7 +410,7 @@ void Scanner(string line)
                 flag = 2;
                 i++;
             }
-            else if (line[i] == ' ' or line[i] == '\n' or line[i] == '\0')
+            else if (line[i] == ' ' or line[i] == '\n' or line[i] == '\0' or line[i] == '\t')
             {
                 if (k == 0)
                     continue;
@@ -416,8 +427,8 @@ void Scanner(string line)
             }
             else
             {
-                buffer += line[i];
-                k++;
+                if (line[i] != ' ' and line[i] != '\n' and line[i] != '\0' and line[i] != '\t')
+                    buffer += line[i], k++;
             }
         }
         else if (flag == 1)
@@ -438,7 +449,10 @@ void Scanner(string line)
     if (buffer.length() != 0)
     {
         //cout << "buffer : " << buffer << endl;
-        tokenizer(buffer);
+        if (stringLiteral)
+            dfa(buffer);
+        else
+            tokenizer(buffer);
     }
 }
 
@@ -453,6 +467,8 @@ int main()
 
     fstream file;
     file.open(filename, ios::in);
+    //comment below line to print output on termina;
+    freopen("output3.txt", "w", stdout);
 
     if (file)
     {
