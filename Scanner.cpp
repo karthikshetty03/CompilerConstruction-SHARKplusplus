@@ -58,7 +58,6 @@ void putOperators()
     operators.insert("==");
     operators.insert(">=");
     operators.insert("<=");
-    operators.insert("!=");
     operators.insert("&");
     operators.insert("|");
     operators.insert("^");
@@ -66,6 +65,13 @@ void putOperators()
     operators.insert("&&");
     operators.insert("||");
     operators.insert("=");
+    operators.insert("!=");
+    operators.insert("&=");
+    operators.insert("|=");
+    operators.insert("-=");
+    operators.insert("+=");
+    operators.insert("*=");
+    operators.insert("/=");
 }
 
 //set containing delimeters
@@ -417,14 +423,10 @@ void Scanner(string line)
             else if (line[i] == ' ' or line[i] == '\n' or line[i] == '\0' or line[i] == '\t')
             {
                 if (k == 0)
-                {
                     continue;
-                }
 
                 if (buffer.length() >= 1 and (buffer.back() == '+' or buffer.back() == '-'))
-                {
                     continue;
-                }
 
                 tokenizer(buffer);
                 buffer = "";
@@ -450,9 +452,7 @@ void Scanner(string line)
         else if (flag == 2)
         {
             if (line[i] == '\n')
-            {
                 flag = 0;
-            }
         }
     }
 
