@@ -1,0 +1,66 @@
+Token 16, keyword int, line number 4
+Token 18, keyword main, line number 4
+Token 50, delimiter (, line number 4
+Token 51, delimiter ), line number 4
+Token 56, delimiter {, line number 5
+Token 12, keyword float, line number 6
+Token 150, identifier a, line number 6
+Token 68, operator =, line number 6
+Token 153, Float -22332.2323, line number 6
+Token 53, delimiter ;, line number 6
+Token 12, keyword float, line number 7
+Token 150, identifier b, line number 7
+Token 68, operator =, line number 7
+Token 404, invalid 2.3.3.3.3, line number 7........
+Token 53, delimiter ;, line number 7
+Token 12, keyword float, line number 8
+Token 150, identifier c, line number 8
+Token 68, operator =, line number 8
+Token 404, invalid -0001.23232, line number 8........
+Token 53, delimiter ;, line number 8
+Token 12, keyword float, line number 9
+Token 150, identifier d, line number 9
+Token 68, operator =, line number 9
+Token 153, Float -0.232343234, line number 9
+Token 16, keyword int, line number 11
+Token 150, identifier a1, line number 11
+Token 68, operator =, line number 11
+Token 151, Integer -3, line number 11
+Token 53, delimiter ;, line number 11
+Token 16, keyword int, line number 12
+Token 150, identifier b1, line number 12
+Token 68, operator =, line number 12
+Token 151, Integer +98923, line number 12
+Token 53, delimiter ;, line number 12
+Token 16, keyword int, line number 13
+Token 150, identifier c1, line number 13
+Token 68, operator =, line number 13
+Token 404, invalid -0, line number 13........
+Token 53, delimiter ;, line number 13
+Token 16, keyword int, line number 14
+Token 150, identifier a1, line number 14
+Token 68, operator =, line number 14
+Token 404, invalid 00010122, line number 14........
+Token 53, delimiter ;, line number 14
+Token 22, keyword string, line number 16
+Token 150, identifier atr, line number 16
+Token 68, operator =, line number 16
+Token 404, invalid "invalid string will not be closed;, line number 16........
+Token 22, keyword string, line number 17
+Token 150, identifier btr, line number 17
+Token 68, operator =, line number 17
+Token 154, String "Compiler Construction project of constructing SHARK++", line number 17
+Token 53, delimiter ;, line number 17
+Token 22, keyword string, line number 18
+Token 150, identifier ctr, line number 18
+Token 68, operator =, line number 18
+Token 154, String "this string is valid", line number 18
+Token 154, String "by definition of SHARK++", line number 18
+Token 154, String "as they will be concatenated at compile time", line number 18
+Token 53, delimiter ;, line number 18
+Token 22, keyword string, line number 19
+Token 150, identifier dtr, line number 19
+Token 68, operator =, line number 19
+Token 154, String "Erronepus string ahead ", line number 19
+Token 404, invalid ";, line number 19........
+Token 57, delimiter }, line number 20

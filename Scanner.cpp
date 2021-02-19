@@ -36,7 +36,7 @@ void putKeys()
     keyWords.insert("true");
     keyWords.insert("false");
 
-    //whitespace after below two keywords are mandatory
+    //Note : whitespace after using below two keywords in the language are mandatory
     keyWords.insert("printf");
     keyWords.insert("scanf");
 }
@@ -109,7 +109,7 @@ int checkOpDel(char ch)
     return 0;
 }
 
-//global variable to keep track of the previous token wrt to current token given to tokenizer function
+//global variable to keep track of the token sent to dfa
 string temp;
 
 //dfa
@@ -420,7 +420,7 @@ void Scanner(string line)
                 flag = 2;
                 i++;
             }
-            else if (line[i] == ' ' or line[i] == '\n' or line[i] == '\0' or line[i] == '\t')
+            else if (line[i] == ' ' or line[i] == '\n' or line[i] == '\t')
             {
                 if (k == 0)
                     continue;
@@ -434,7 +434,7 @@ void Scanner(string line)
             }
             else
             {
-                if (line[i] != ' ' and line[i] != '\n' and line[i] != '\0' and line[i] != '\t')
+                if (line[i] != ' ' and line[i] != '\n' and line[i] != '\t')
                 {
                     buffer += line[i];
                     k++;
