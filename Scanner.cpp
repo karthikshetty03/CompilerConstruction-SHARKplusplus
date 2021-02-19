@@ -207,7 +207,7 @@ void dfa(string token)
             if (ch == '.')
                 state = 7;
             else
-                state = 10;
+                state = 4;
             break;
         case 6:
             if (ch != '"')
