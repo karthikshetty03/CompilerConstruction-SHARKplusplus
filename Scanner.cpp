@@ -2,12 +2,10 @@
 #define keyRange 1
 #define opRange 50
 #define delRange 100
-
 using namespace std;
 
 int token_no = 1;
 int line_no = 0;
-
 set<string> keyWords, operators, delimiters;
 
 //set containing keywords
@@ -83,26 +81,36 @@ void putDelimiters()
     delimiters.insert(",");
 }
 
+//function to check whether a character is operator or delimiter
 int checkOpDel(char ch)
 {
     for (auto x : operators)
+    {
         if (x[0] == ch)
+        {
             return 1;
+        }
+    }
 
     for (auto x : delimiters)
+    {
         if (x[0] == ch)
+        {
             return 2;
+        }
+    }
 
     return 0;
 }
 
-int dfa(string token)
+//dfa
+void dfa(string token)
 {
-    //cout << token << endl;
-
+    //return if token string is empty
     if (token.length() == 0)
-        return 0;
+        return;
 
+    //if the token string is a pre-defined keyword
     for (auto itr = keyWords.begin(); itr != keyWords.end(); itr++)
     {
         if (*itr == token)
@@ -110,10 +118,11 @@ int dfa(string token)
             cout << "Token " << keyRange + distance(keyWords.begin(), itr) << ", "
                  << "keyword " << token << ", "
                  << "line number " << line_no << endl;
-            return 0;
+            return;
         }
     }
 
+    //if the token string is a pre-defined operator
     for (auto itr = operators.begin(); itr != operators.end(); itr++)
     {
         if (*itr == token)
@@ -121,10 +130,11 @@ int dfa(string token)
             cout << "Token " << opRange + distance(operators.begin(), itr) << ", "
                  << "operator " << token << ", "
                  << "line number " << line_no << endl;
-            return 0;
+            return;
         }
     }
 
+    //if the token string is a pre-defined delimiter
     for (auto itr = delimiters.begin(); itr != delimiters.end(); itr++)
     {
         if (*itr == token)
@@ -132,20 +142,16 @@ int dfa(string token)
             cout << "Token " << opRange + distance(delimiters.begin(), itr) << ", "
                  << "delimiter " << token << ", "
                  << "line number " << line_no << endl;
-            return 0;
+            return;
         }
     }
 
-    //DFA for others
+    //DFA for all other cases
     int state = 1;
     char ch;
 
     for (int i = 0; i < token.length(); i++)
     {
-
-        if (state == 10)
-            break;
-
         ch = token[i];
 
         switch (state)
@@ -214,8 +220,7 @@ int dfa(string token)
             state = 9;
             break;
         case 10:
-            printf("invalid token\n");
-            return 10;
+            break;
         case 11:
             if (ch == '.')
                 state = 7;
@@ -224,67 +229,61 @@ int dfa(string token)
         }
     }
 
-    //cout << state << endl;
-
+    //check final state and print result
     switch (state)
     {
     case 2:
-        // Identifier
+        // Identifiers
         cout << "Token 150, "
              << "identifier " << token << ", "
              << "line number " << line_no << endl;
         break;
     case 4:
-        //Integers from 1-9
+        //Integer literals except 0
         cout << "Token 151, "
              << "Integer " << token << ", "
              << "line number " << line_no << endl;
         break;
     case 5:
-        // Specifically for integer =0
+        // Specifically for integer literal 0
         cout << "Token 152, "
              << "Integer " << token << ", "
              << "line number " << line_no << endl;
         break;
     case 8:
-        // Float
+        // Float literals
         cout << "Token 153, "
              << "Float " << token << ", "
              << "line number " << line_no << endl;
         break;
+        //string literals
     case 9:
         cout << "Token 154, "
              << "String " << token << ", "
              << "line number " << line_no << endl;
         break;
     default:
+        //invalid tokens
         cout << "Token 404, "
              << "invalid " << token << ", "
              << "line number " << line_no << "........" << endl;
         break;
     }
-
-    return state;
 }
 
+//global variable to keep track of the previous token wrt to current token given to tokenizer function
 string temp;
 
+//seperates tokens by operators and delimeters and passes it to dfa for final output
 void tokenizer(string token)
 {
-    //cout << token << endl;
     int flag = 0, curr;
     string buffer;
     char ch;
-    //cout << "token : " << token << endl;
-    //dfa(token);
-    //dfa(token);
-    //return;
 
     for (int i = 0; i < token.length(); i++)
     {
         int curr = checkOpDel(token[i]);
-
-        //cout << token[i] << " " << curr << endl;
 
         if (flag == 1)
         {
@@ -307,15 +306,14 @@ void tokenizer(string token)
 
                 i--;
 
-                if (operators.find(temp) == operators.end()) //-- > 3
+                if (operators.find(temp) == operators.end())
                 {
-                    //buffer --> -4
-                    reverse(buffer.begin(), buffer.end()); //-- > 4-
+                    reverse(buffer.begin(), buffer.end());
                     string op;
                     op += buffer.back();
-                    dfa(op); //return operator --> -
+                    dfa(op);
                     buffer.pop_back();
-                    reverse(buffer.begin(), buffer.end()); //-->4
+                    reverse(buffer.begin(), buffer.end());
                 }
 
                 if (cntDot > 1)
@@ -361,11 +359,16 @@ void tokenizer(string token)
     }
 
     if (buffer.length())
+    {
         dfa(buffer);
+    }
 
     temp = token;
 }
 
+//Scanner, which is repeatedly called by parser for each line
+//Scanner eliminates whitepaces, new lines, tab spaces and sends it to tokenizer function
+//in case of string literals, it is directly sent to dfa for final output
 void Scanner(string line)
 {
     int k = 0, flag = 0;
@@ -374,8 +377,6 @@ void Scanner(string line)
 
     for (int i = 0; i < line.length(); i++)
     {
-        //cout << buffer << endl;
-
         if (line[i] == '"' and !stringLiteral)
         {
             tokenizer(buffer);
@@ -414,14 +415,15 @@ void Scanner(string line)
             else if (line[i] == ' ' or line[i] == '\n' or line[i] == '\0' or line[i] == '\t')
             {
                 if (k == 0)
+                {
                     continue;
+                }
 
                 if (buffer.length() >= 1 and (buffer.back() == '+' or buffer.back() == '-'))
                 {
                     continue;
                 }
 
-                //cout << "buffer : " << buffer << endl;
                 tokenizer(buffer);
                 buffer = "";
                 k = 0;
@@ -429,7 +431,10 @@ void Scanner(string line)
             else
             {
                 if (line[i] != ' ' and line[i] != '\n' and line[i] != '\0' and line[i] != '\t')
-                    buffer += line[i], k++;
+                {
+                    buffer += line[i];
+                    k++;
+                }
             }
         }
         else if (flag == 1)
@@ -449,11 +454,14 @@ void Scanner(string line)
 
     if (buffer.length() != 0)
     {
-        //cout << "buffer : " << buffer << endl;
         if (stringLiteral)
+        {
             dfa(buffer);
+        }
         else
+        {
             tokenizer(buffer);
+        }
     }
 }
 
@@ -469,8 +477,8 @@ int main()
     fstream file;
     file.open(filename, ios::in);
 
-    //comment below line to print output on termina;
-    freopen("output3.txt", "w", stdout);
+    //uncomment below line to print output to a file;
+    //freopen("output.txt", "w", stdout);
 
     if (file)
     {
