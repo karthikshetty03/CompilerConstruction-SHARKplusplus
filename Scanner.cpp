@@ -103,12 +103,17 @@ int checkOpDel(char ch)
     return 0;
 }
 
+//global variable to keep track of the previous token wrt to current token given to tokenizer function
+string temp;
+
 //dfa
 void dfa(string token)
 {
     //return if token string is empty
     if (token.length() == 0)
         return;
+
+    temp = token;
 
     //if the token string is a pre-defined keyword
     for (auto itr = keyWords.begin(); itr != keyWords.end(); itr++)
@@ -270,9 +275,6 @@ void dfa(string token)
         break;
     }
 }
-
-//global variable to keep track of the previous token wrt to current token given to tokenizer function
-string temp;
 
 //seperates tokens by operators and delimeters and passes it to dfa for final output
 void tokenizer(string token)
@@ -448,20 +450,18 @@ void Scanner(string line)
         else if (flag == 2)
         {
             if (line[i] == '\n')
+            {
                 flag = 0;
+            }
         }
     }
 
     if (buffer.length() != 0)
     {
         if (stringLiteral)
-        {
             dfa(buffer);
-        }
         else
-        {
             tokenizer(buffer);
-        }
     }
 }
 
