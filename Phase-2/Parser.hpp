@@ -1,3 +1,13 @@
+/*
+Group Members :
+
+Shetty Karthik Ravindra - 2018A7PS0141H
+Koustubh Sharma - 2018A7PS0114H
+Rishabh Baid - 2018A7PS0189H
+Abhirath Singh Parmar - 2018A7PS0521H
+
+*/
+
 #include <bits/stdc++.h>
 #define keyRange 1
 #define opRange 50
@@ -93,17 +103,13 @@ int checkOpDel(char ch)
     for (auto x : operators)
     {
         if (x[0] == ch)
-        {
             return 1;
-        }
     }
 
     for (auto x : delimiters)
     {
         if (x[0] == ch)
-        {
             return 2;
-        }
     }
 
     return 0;
@@ -337,18 +343,14 @@ void tokenizer(string token)
             buffer = "";
 
             if (flag != 2)
-            {
                 buffer += token[i];
-            }
 
             flag = 0;
             continue;
         }
 
         if (curr == 0)
-        {
             buffer += token[i];
-        }
         else if (curr == 1)
         {
             flag = 1;
@@ -367,9 +369,7 @@ void tokenizer(string token)
     }
 
     if (buffer.length())
-    {
         dfa(buffer);
-    }
 
     temp = token;
 }
@@ -466,13 +466,11 @@ void Scanner(string line)
 }
 
 //driver code : parser
-int main()
+int driver(string filename)
 {
     putKeys();
     putOperators();
     putDelimiters();
-    string filename;
-    cin >> filename;
 
     fstream file;
     file.open(filename, ios::in);
