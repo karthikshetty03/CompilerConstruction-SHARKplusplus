@@ -14,8 +14,10 @@ Abhirath Singh Parmar - 2018A7PS0521H
 #define delRange 100
 using namespace std;
 
+vector<string> tokens;
 int token_no = 1;
 int line_no = 0;
+int trow = 0;
 set<string> keyWords, operators, delimiters;
 
 //set containing keywords
@@ -132,9 +134,7 @@ void dfa(string token)
     {
         if (*itr == token)
         {
-            cout << "Token " << keyRange + distance(keyWords.begin(), itr) << ", "
-                 << "keyword " << token << ", "
-                 << "line number " << line_no << endl;
+            tokens.push_back(token);
             return;
         }
     }
@@ -144,9 +144,7 @@ void dfa(string token)
     {
         if (*itr == token)
         {
-            cout << "Token " << opRange + distance(operators.begin(), itr) << ", "
-                 << "operator " << token << ", "
-                 << "line number " << line_no << endl;
+            tokens.push_back(token);
             return;
         }
     }
@@ -156,9 +154,7 @@ void dfa(string token)
     {
         if (*itr == token)
         {
-            cout << "Token " << opRange + distance(delimiters.begin(), itr) << ", "
-                 << "delimiter " << token << ", "
-                 << "line number " << line_no << endl;
+            tokens.push_back(token);
             return;
         }
     }
@@ -251,39 +247,27 @@ void dfa(string token)
     {
     case 2:
         // Identifiers
-        cout << "Token 150, "
-             << "identifier " << token << ", "
-             << "line number " << line_no << endl;
+        tokens.push_back("id");
         break;
     case 4:
         //Integer literals except 0
-        cout << "Token 151, "
-             << "Integer " << token << ", "
-             << "line number " << line_no << endl;
+        tokens.push_back("id");
         break;
     case 5:
         // Specifically for integer literal 0
-        cout << "Token 152, "
-             << "Integer " << token << ", "
-             << "line number " << line_no << endl;
+        tokens.push_back("id");
         break;
     case 8:
         // Float literals
-        cout << "Token 153, "
-             << "Float " << token << ", "
-             << "line number " << line_no << endl;
+        tokens.push_back("id");
         break;
         //string literals
     case 9:
-        cout << "Token 154, "
-             << "String " << token << ", "
-             << "line number " << line_no << endl;
+        tokens.push_back("id");
         break;
     default:
         //invalid tokens
-        cout << "Token 404, "
-             << "invalid " << token << ", "
-             << "line number " << line_no << "........" << endl;
+        tokens.push_back("invalid_token");
         break;
     }
 }
