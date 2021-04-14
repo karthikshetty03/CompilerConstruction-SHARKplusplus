@@ -36,7 +36,7 @@ class Buffer
 			if( c == '\n')
 			{
 				line++;
-				cout << line << endl;
+				// cout << line << endl;
 			}
 			return c;
 		}
@@ -72,7 +72,7 @@ class Buffer
 			char c = ReadNextChar();
 			if(c == ' ' || c == '\n' ||c == '\t' || c == '\r')
 			{
-				cout << c;
+				// cout << c;
 				seen = true;
 			}
 			else
@@ -80,10 +80,10 @@ class Buffer
 				if(seen == true)
 				{
 					Reset();
-					cout << endl;
+					// cout << endl;
 					return;
 				}
-				cout << c ;
+				// cout << c ;
 			}
 			Mark();
 		}

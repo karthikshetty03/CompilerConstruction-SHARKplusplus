@@ -20,14 +20,11 @@ using namespace std;
 #include <functional>
 #include <iomanip>
 #include <cassert>
+
 #define US unordered_set
 #define ll long long
 #define ss second
 #define ff first
-#define FastIO                 \
-	ios::sync_with_stdio(false); \
-	cin.tie(0);                  \
-	cout.tie(0);
 #define pb push_back
 
 #include "helpers/Buffer.hpp"
@@ -36,8 +33,6 @@ using namespace std;
 #include "helpers/Token.hpp"
 #include "helpers/paser.hpp"
 #include "helpers/Scanner.hpp"
-
-#define FOR(i, a, b) for (long long i = a; i < b; i++)
 
 string DATATYPE(string k, string s)
 {
@@ -76,28 +71,24 @@ string DATATYPE(string k, string s)
 
 	if (k == "integer")
 		return "DIGIT";
-	//if(s == '+' || s == '-' || s=='*' || s=='%'){}
 }
+
 int main(int argc, char *argv[])
 {
 	if (argc <= 1)
 	{
-		cout << "error" << endl;
+		cout << "Error! Please input sufficient arguments" << endl;
 		return 1;
 	}
 
 	string fileName(argv[1]);
 	Data tokens = Scanner::LangScanner(fileName);
-	//
-	/* {int a 10;}
 
-
-while(a<=20){
-	a=a+2;
-	b=b-1;
-}
-*/
 	string fin = "";
+	cout <<endl;
+	cout <<"**************** Print token list ************************"<<endl;
+	cout << endl;
+
 	for (int i = 0; i < tokens.tok.size(); ++i)
 	{
 		cout << "name: " << tokens.tok[i].m_name;
@@ -106,9 +97,16 @@ while(a<=20){
 		cout << " tok id: " << tokens.symbol_table[tokens.tok[i].m_value] << endl;
 		fin += " " + DATATYPE(tokens.tok[i].m_name, tokens.tok[i].m_value) + " ";
 	}
+
+	cout << endl<<endl;
+	cout << "******************* Print level-wise parsing *****************" << endl;
+	cout << endl;
+
 	fin += "$";
 	Parser p(fin);
+	cout << endl<<endl;
+	cout << "******************* Print Abstract Sytax Tree (AST) *****************" << endl;
+	cout << endl;
 	cout << fin << endl;
-
 	return 0;
 }
