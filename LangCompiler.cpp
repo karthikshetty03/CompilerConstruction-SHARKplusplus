@@ -20,11 +20,14 @@ using namespace std;
 #include <functional>
 #include <iomanip>
 #include <cassert>
-#define US unordered_set 
+#define US unordered_set
 #define ll long long
 #define ss second
 #define ff first
-#define FastIO ios::sync_with_stdio(false); cin.tie(0); cout.tie(0);
+#define FastIO                 \
+	ios::sync_with_stdio(false); \
+	cin.tie(0);                  \
+	cout.tie(0);
 #define pb push_back
 
 #include "helpers/Buffer.hpp"
@@ -33,61 +36,60 @@ using namespace std;
 #include "helpers/Token.hpp"
 #include "helpers/paser.hpp"
 #include "helpers/Scanner.hpp"
- 
-#define FOR(i, a, b) for(long long i=a;i<b;i++)
 
+#define FOR(i, a, b) for (long long i = a; i < b; i++)
 
-string DATATYPE(string k ,string s){
-	if(k=="keyword")
-		{
-			if(s=="if")
-				return "IF";
-			if(s=="else")
-				return "ELSE";
-			if(s=="while")
-				return "WHILE";
-			if(s=="int" || s=="float" || s=="long" || s=="char" || s=="double")
-				return "TYPE";
-			if(s=="true")
-				return "TRUE";
-			if(s=="false")
-				return "FALSE";
-
-		}
-	if(k=="identifier")
+string DATATYPE(string k, string s)
+{
+	if (k == "keyword")
+	{
+		if (s == "if")
+			return "IF";
+		if (s == "else")
+			return "ELSE";
+		if (s == "while")
+			return "WHILE";
+		if (s == "int" || s == "float" || s == "long" || s == "char" || s == "double")
+			return "TYPE";
+		if (s == "true")
+			return "TRUE";
+		if (s == "false")
+			return "FALSE";
+	}
+	if (k == "identifier")
 		return "ID";
-	if (k=="comment")
+	if (k == "comment")
 		return "";
-	if(k=="single"){
-		if(s == "<" || s == ">" || s == "<=" || s == ">=" || s == "!=" || s == "==" )
+	if (k == "single")
+	{
+		if (s == "<" || s == ">" || s == "<=" || s == ">=" || s == "!=" || s == "==")
 			return "REL_OPT";
-		if(s=="||")
+		if (s == "||")
 			return "OR";
-		if(s=="&&")
+		if (s == "&&")
 			return "AND";
-		if(s=="!")
+		if (s == "!")
 			return "NOT";
 		else
 			return s;
 	}
-		
-	
-	if(k=="integer")
+
+	if (k == "integer")
 		return "DIGIT";
 	//if(s == '+' || s == '-' || s=='*' || s=='%'){}
 }
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
-	if(argc <= 1)
+	if (argc <= 1)
 	{
 		cout << "error" << endl;
 		return 1;
 	}
 
-	string fileName( argv[1] );
+	string fileName(argv[1]);
 	Data tokens = Scanner::LangScanner(fileName);
 	//
-/* {int a 10;}
+	/* {int a 10;}
 
 
 while(a<=20){
@@ -98,20 +100,15 @@ while(a<=20){
 	string fin = "";
 	for (int i = 0; i < tokens.tok.size(); ++i)
 	{
-			cout << "name: " << tokens.tok[i].m_name;
-			cout << " value:" << tokens.tok[i].m_value;
-			cout <<  " Line: " << tokens.tok[i].m_line;
-			cout << " tok id: " << tokens.symbol_table[tokens.tok[i].m_value] << endl;	
-			fin += " " + DATATYPE(tokens.tok[i].m_name,tokens.tok[i].m_value) + " ";
-			
+		cout << "name: " << tokens.tok[i].m_name;
+		cout << " value:" << tokens.tok[i].m_value;
+		cout << " Line: " << tokens.tok[i].m_line;
+		cout << " tok id: " << tokens.symbol_table[tokens.tok[i].m_value] << endl;
+		fin += " " + DATATYPE(tokens.tok[i].m_name, tokens.tok[i].m_value) + " ";
 	}
 	fin += "$";
 	Parser p(fin);
-	cout<<fin<<endl;
-	// Parser P(" { TYPE ID = DIGIT ; } WHILE ( ID REL_OPT DIGIT ) { ID = ID + DIGIT ; } $");
-	// P.printcsv();
-	// string val = "r32"; 
-	// int num = stoi( string(val.begin()+1, val.end()));
-	// cout << num << endl;
+	cout << fin << endl;
+
 	return 0;
 }
