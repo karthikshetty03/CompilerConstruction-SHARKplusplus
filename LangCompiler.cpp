@@ -85,8 +85,8 @@ int main(int argc, char *argv[])
 	Data tokens = Scanner::LangScanner(fileName);
 
 	string fin = "";
-	cout <<endl;
-	cout <<"**************** Print token list ************************"<<endl;
+	cout << endl;
+	cout << "**************** Print token list ************************" << endl;
 	cout << endl;
 
 	for (int i = 0; i < tokens.tok.size(); ++i)
@@ -98,15 +98,22 @@ int main(int argc, char *argv[])
 		fin += " " + DATATYPE(tokens.tok[i].m_name, tokens.tok[i].m_value) + " ";
 	}
 
-	cout << endl<<endl;
+	cout << endl
+			 << endl;
 	cout << "******************* Print level-wise parsing *****************" << endl;
 	cout << endl;
 
 	fin += "$";
 	Parser p(fin);
-	cout << endl<<endl;
-	cout << "******************* Print Abstract Sytax Tree (AST) *****************" << endl;
-	cout << endl;
-	cout << fin << endl;
+
+	if (!flag)
+	{
+		cout << endl
+				 << endl;
+		cout << "******************* Print Abstract Syntax Tree (AST) *****************" << endl;
+		cout << endl;
+		cout << fin << endl;
+	}
+
 	return 0;
 }
